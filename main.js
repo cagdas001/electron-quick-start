@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, globalShortcut, BrowserWindow, ipcMain } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -7,7 +7,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 800, height: 600, skipTaskbar: true})
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -22,6 +22,20 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  globalShortcut.register('CommandOrControl+X', () => {
+    if (process.platform === 'darwin') {
+      // show dock icon
+      app.dock.show();
+      // show app itself
+      app.show();
+    }
+    else {
+      mainWindow.show();
+    }
+
+  })
+
 }
 
 // This method will be called when Electron has finished
@@ -45,6 +59,21 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+app.on('will-quit', () => {
+  // Unregister a shortcut.
+  globalShortcut.unregister('CommandOrControl+X')
+})
+
+ipcMain.on('ui.app.dock.hide', function () {
+  app.dock.hide();
+});
+ipcMain.on('ui.app.hide', function () {
+  app.hide();
+});
+ipcMain.on('ui.win.hide', function () {
+  mainWindow.hide();
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

@@ -9,11 +9,31 @@
     <!-- All of the Node.js APIs are available in this renderer process. -->
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    and Electron <script>document.write(process.versions.electron)</script>. <br><br>
+
+    <button id='btnAppDockHide'>app.dock.hide</button>
+    <button id='btnAppHide'>app.hide</button>
+    <button id='btnWinHide'>BrowserWindow.hide</button>
 
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')
+
+      const { ipcRenderer } = require('electron');
+
+      let btnAppDockHide = document.getElementById('btnAppDockHide');
+      let btnAppHide = document.getElementById('btnAppHide');
+      let btnWinHide = document.getElementById('btnWinHide');
+
+      btnAppDockHide.addEventListener('click', function () {
+        ipcRenderer.send('ui.app.dock.hide');
+      });
+      btnAppHide.addEventListener('click', function () {
+        ipcRenderer.send('ui.app.hide');
+      });
+      btnWinHide.addEventListener('click', function () {
+        ipcRenderer.send('ui.win.hide');
+      });
     </script>
   </body>
 </html>
