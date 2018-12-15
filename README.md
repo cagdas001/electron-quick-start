@@ -1,5 +1,11 @@
 # electron-quick-start
 
+# A REPRODUCIBLE VERSION OF electron-quick-start, FOR AN ISSUE
+
+[Issue link comes here](#electron-quick-start)
+
+---
+
 **Clone and run for a quick way to see Electron in action.**
 
 This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
