@@ -2,7 +2,7 @@
 
 # A REPRODUCIBLE VERSION OF electron-quick-start, FOR AN ISSUE
 
-[Issue link comes here](#electron-quick-start)
+[https://github.com/electron/electron/issues/16093](https://github.com/electron/electron/issues/16093)
 
 ---
 
